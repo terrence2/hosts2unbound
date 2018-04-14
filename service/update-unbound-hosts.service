@@ -1,0 +1,6 @@
+[Unit]
+Description=Reboot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/hosts2unbound -o /etc/unbound/auto-block-zones.conf

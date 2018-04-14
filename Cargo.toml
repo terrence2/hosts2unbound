@@ -1,0 +1,9 @@
+[package]
+name = "hosts2unbound"
+version = "0.1.0"
+authors = ["Terrence Cole <terrence.d.cole@gmail.com>"]
+
+[dependencies]
+structopt = "0.2"
+failure = "0.1"
+reqwest = "0.8"

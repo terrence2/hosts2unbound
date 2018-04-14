@@ -1,0 +1,10 @@
+[Unit]
+Description=Updates the auto-generated unbound block list every week.
+
+[Timer]
+OnCalendar=02:05
+OnUnitActiveSec=1w
+Unit=update-unbound-hosts.service
+
+[Install]
+WantedBy=multi-user.target

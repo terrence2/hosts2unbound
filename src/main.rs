@@ -19,8 +19,8 @@ extern crate structopt;
 
 use failure::Error;
 use std::fs::File;
-use std::io::BufReader;
 use std::io::prelude::*;
+use std::io::BufReader;
 use std::path::PathBuf;
 use structopt::StructOpt;
 
@@ -36,7 +36,11 @@ struct Opt {
     output: PathBuf,
 
     /// Override hosts source
-    #[structopt(short = "h", long = "hosts", default_value = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts")]
+    #[structopt(
+        short = "h",
+        long = "hosts",
+        default_value = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts"
+    )]
     hosts_url: String,
 }
 
@@ -60,6 +64,8 @@ fn run(opt: &Opt) -> Result<(), Error> {
         if !line.starts_with("0.0.0.0") {
             continue;
         }
+
+        let line = line.split('#').next().unwrap_or("");
 
         let host = line.split(' ').last().unwrap_or("");
         host.trim();

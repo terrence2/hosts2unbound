@@ -2,8 +2,9 @@
 name = "hosts2unbound"
 version = "0.1.0"
 authors = ["Terrence Cole <terrence.d.cole@gmail.com>"]
+edition = "2018"
 
 [dependencies]
-structopt = "0.2"
-failure = "0.1"
-reqwest = "0.8"
+structopt = "^ 0.3"
+failure = "^ 0.1"
+reqwest = { version = "^ 0.10", features = [ "blocking" ] }

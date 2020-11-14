@@ -12,16 +12,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with hosts2unbound.  If not, see <http://www.gnu.org/licenses/>.
-extern crate failure;
-extern crate reqwest;
-#[macro_use]
-extern crate structopt;
-
 use failure::Error;
-use std::fs::File;
-use std::io::prelude::*;
-use std::io::BufReader;
-use std::path::PathBuf;
+use std::{
+    fs::File,
+    io::{prelude::*, BufReader},
+    path::PathBuf,
+};
 use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
@@ -51,10 +47,10 @@ fn main() {
 
 fn run(opt: &Opt) -> Result<(), Error> {
     let mut out = File::create(&opt.output)?;
-    let resp = reqwest::get(&opt.hosts_url)?;
+    let resp = reqwest::blocking::get(&opt.hosts_url)?;
     for line in BufReader::new(resp).lines() {
         let line = line?;
-        line.trim();
+        let line = line.trim();
         if line == "" {
             continue;
         }
@@ -67,8 +63,7 @@ fn run(opt: &Opt) -> Result<(), Error> {
 
         let line = line.split('#').next().unwrap_or("");
 
-        let host = line.split(' ').last().unwrap_or("");
-        host.trim();
+        let host = line.split(' ').last().unwrap_or("").trim();
         if host == "" {
             continue;
         }
